@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="sage">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Portfolio</title>
+  
+  <!-- Google Fonts & FontAwesome 6.5.1 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* =========================================================
+       COLOR PALETTES
+       ========================================================= */
+    :root {
+      --sand-warm: #DEC3B3; --sky-soft: #D2DCE4; --mist-white: #E7EBEE;
+      --nude-blush: #E5D6CE; --cream-bg: #F8F2EF; --text-dark: #2d3748;
+      --text-muted: #64748b; --accent-tag: #b08d79; --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(222, 195, 179, 0.4); 
+      --gradient-sand: linear-gradient(135deg, #DEC3B3 0%, #E5D6CE 100%);
+      --gradient-ocean: linear-gradient(135deg, #D2DCE4 0%, #DEC3B3 100%);
+      --shadow-soft: 0 20px 40px rgba(180, 160, 150, 0.15);
+    }
+
+    [data-theme="sage"] {
+      --sand-warm: #C1CDBA; --sky-soft: #E2E8DD; --mist-white: #EEF2E6;
+      --nude-blush: #D8E2DC; --cream-bg: #FAF9F6; --text-dark: #2C3531;
+      --text-muted: #5C6B64; --accent-tag: #7a8b7b; --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(193, 205, 186, 0.45);
+      --gradient-sand: linear-gradient(135deg, #C1CDBA 0%, #D8E2DC 100%);
+      --gradient-ocean: linear-gradient(135deg, #E2E8DD 0%, #C1CDBA 100%);
+      --shadow-soft: 0 20px 40px rgba(160, 175, 155, 0.18);
+    }
+
+    [data-theme="blush"] {
+      --sand-warm: #E2B4B7; --sky-soft: #F5D6CE; --mist-white: #F8E5E5;
+      --nude-blush: #F0D3C9; --cream-bg: #FAF3F2; --text-dark: #3A2E39;
+      --text-muted: #735D6A; --accent-tag: #b87a82; --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(226, 180, 183, 0.45);
+      --gradient-sand: linear-gradient(135deg, #E2B4B7 0%, #F5D6CE 100%);
+      --gradient-ocean: linear-gradient(135deg, #F5D6CE 0%, #E2B4B7 100%);
+      --shadow-soft: 0 20px 40px rgba(226, 180, 183, 0.2);
+    }
+
+    [data-theme="lavender"] {
+      --sand-warm: #C8C6E5; --sky-soft: #E2E0F4; --mist-white: #F0EFF9;
+      --nude-blush: #D8D5ED; --cream-bg: #F7F7FD; --text-dark: #2E2A41;
+      --text-muted: #625C77; --accent-tag: #8c86b2; --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(200, 198, 229, 0.45);
+      --gradient-sand: linear-gradient(135deg, #C8C6E5 0%, #E2E0F4 100%);
+      --gradient-ocean: linear-gradient(135deg, #E2E0F4 0%, #C8C6E5 100%);
+      --shadow-soft: 0 20px 40px rgba(190, 185, 220, 0.2);
+    }
+
+    [data-theme="buttercream"] {
+      --sand-warm: #E6D3A3; --sky-soft: #F5ECCE; --mist-white: #FAF5E4;
+      --nude-blush: #EFE4C4; --cream-bg: #FCFAF2; --text-dark: #383222;
+      --text-muted: #6B624A; --accent-tag: #9e8d5f; --card-bg: rgba(255, 255, 255, 0.88);
+      --card-border: rgba(230, 211, 163, 0.45);
+      --gradient-sand: linear-gradient(135deg, #E6D3A3 0%, #F5ECCE 100%);
+      --gradient-ocean: linear-gradient(135deg, #F5ECCE 0%, #E6D3A3 100%);
+      --shadow-soft: 0 20px 40px rgba(210, 195, 150, 0.2);
+    }
+
+    body, .card, .social-btn, .palette-btn, .gallery-item {
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--cream-bg);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 1rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .palette-btn {
+      position: fixed; top: 20px; right: 20px; z-index: 100; background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-dark); padding: 0.6rem 1.1rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; box-shadow: var(--shadow-soft); backdrop-filter: blur(10px);
+    }
+    .palette-btn:hover { transform: translateY(-2px); }
+
+    .bg-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; filter: blur(90px); }
+    .blob { position: absolute; border-radius: 50%; animation: float 14s infinite alternate ease-in-out; opacity: 0.65; transition: background-color 0.5s ease; }
+    .blob-1 { width: 420px; height: 420px; background: var(--sky-soft); top: -60px; left: -60px; }
+    .blob-2 { width: 480px; height: 480px; background: var(--sand-warm); bottom: -100px; right: -60px; animation-delay: -5s; }
+    .blob-3 { width: 360px; height: 360px; background: var(--nude-blush); top: 40%; left: 55%; animation-delay: -9s; }
+
+    @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(50px, 70px) scale(1.1); } }
+
+    .container { max-width: 920px; width: 100%; display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .card { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--card-border); border-radius: 30px; padding: 3rem; box-shadow: var(--shadow-soft); }
+    .profile-header { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; }
+    .avatar-wrapper { position: relative; padding: 5px; background: var(--gradient-ocean); border-radius: 50%; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06); }
+    .avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #ffffff; display: block; }
+    .profile-title h1 { font-family: 'Cinzel', serif; font-size: 2.6rem; font-weight: 700; letter-spacing: 0.5px; color: var(--text-dark); margin-bottom: 0.4rem; }
+    .profile-title p { color: var(--accent-tag); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2.5px; }
+    .bio { text-align: center; max-width: 680px; margin: 0 auto; line-height: 1.8; color: var(--text-muted); font-size: 1.05rem; font-weight: 400; }
+    
+    .social-links { display: flex; justify-content: center; gap: 1.25rem; margin-top: 0.5rem; }
+    .social-btn { width: 52px; height: 52px; border-radius: 50%; background: #ffffff; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.35rem; border: 1px solid var(--card-border); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); transition: all 0.3s ease; }
+    .social-btn .fa-instagram { color: #E4405F; }
+    .social-btn .fa-snapchat { color: #FFFC00; -webkit-text-stroke: 1px #000000; }
+    .social-btn .fa-threads { color: #000000; }
+    .social-btn:hover { background: var(--gradient-sand); border-color: transparent; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08); transform: translateY(-3px); }
+
+    .section-title { font-family: 'Cinzel', serif; font-size: 1.6rem; color: var(--text-dark); margin-bottom: 2rem; text-align: center; position: relative; }
+    .section-title::after { content: ''; display: block; width: 55px; height: 3px; background: var(--sand-warm); border-radius: 2px; margin: 0.6rem auto 0; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+
+    .gallery-item {
+      background: var(--cream-bg); border: 1px solid var(--card-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05); opacity: 0; transform: translateY(40px) scale(0.96); transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease; will-change: opacity, transform;
+    }
+    .gallery-item.reveal { opacity: 1; transform: translateY(0) scale(1); }
+
+    .ig-header { display: flex; align-items: center; padding: 12px 16px; gap: 12px; border-bottom: 1px solid rgba(0, 0, 0, 0.04); }
+    .ig-header img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid var(--card-border); }
+    .ig-header span { font-weight: 700; font-size: 0.9rem; color: var(--text-dark); }
+
+    /* CAROUSEL STYLES */
+    .ig-img-wrap { position: relative; aspect-ratio: 4 / 5; overflow: hidden; }
+    
+    .carousel { 
+      display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: 100%; 
+      scrollbar-width: none; -ms-overflow-style: none; 
+    }
+    .carousel::-webkit-scrollbar { display: none; }
+    
+    .carousel img { 
+      width: 100%; height: 100%; object-fit: cover; flex-shrink: 0; scroll-snap-align: center; cursor: pointer;
+    }
+    
+    .photo-counter {
+      position: absolute; top: 12px; right: 12px; background: rgba(0, 0, 0, 0.65);
+      color: #fff; font-size: 0.75rem; padding: 4px 10px; border-radius: 12px;
+      z-index: 5; font-weight: 600; pointer-events: none; display: none;
+    }
+
+    .big-heart {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); font-size: 6rem; color: rgba(228, 64, 95, 0.9); opacity: 0; pointer-events: none; transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-in-out; text-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 10;
+    }
+    .big-heart.pop { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+
+    .ig-actions { padding: 12px 16px 6px; display: flex; gap: 16px; font-size: 1.4rem; color: var(--text-dark); }
+    .ig-actions i { cursor: pointer; transition: color 0.2s ease, transform 0.2s ease; }
+    .ig-actions i:hover { color: var(--accent-tag); transform: scale(1.1); }
+    .ig-caption { padding: 0 16px 16px; font-size: 0.9rem; color: var(--text-dark); line-height: 1.5; }
+    .ig-caption strong { font-weight: 700; margin-right: 4px; }
+    .ig-caption .hashtag { color: #0075db; text-decoration: none; }
+    footer { text-align: center; padding: 1rem 0; }
+    .copyright { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Modal Styles */
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(45, 55, 72, 0.85); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s ease; }
+    .modal.active { display: flex; opacity: 1; }
+    .modal img { max-width: 95%; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); }
+    .modal-close { position: absolute; top: 25px; right: 35px; color: #ffffff; font-size: 2.5rem; cursor: pointer; transition: transform 0.2s ease; }
+    .modal-close:hover { transform: scale(1.1); }
+
+    /* Comment Modal */
+    .comment-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); z-index: 2000; display: flex; justify-content: center; align-items: flex-end; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .comment-modal-overlay.active { opacity: 1; pointer-events: auto; }
+    .comment-modal-content { background: var(--cream-bg); width: 100%; max-width: 500px; height: 70vh; border-radius: 20px 20px 0 0; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }
+    .comment-modal-overlay.active .comment-modal-content { transform: translateY(0); }
+    .modal-drag-handle { width: 40px; height: 4px; background: #cbd5e1; border-radius: 2px; margin: 12px auto; }
+    .comment-modal-header { text-align: center; font-weight: 700; padding: 0 0 12px; border-bottom: 1px solid var(--card-border); font-size: 1rem; color: var(--text-dark); }
+    .comment-modal-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px; }
+    .comment-modal-body::-webkit-scrollbar { display: none; }
+    .comment-item { display: flex; justify-content: space-between; align-items: flex-start; color: var(--text-dark); font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
+    .comment-content { flex: 1; padding-right: 15px; }
+    .comment-content strong { font-weight: 700; margin-right: 5px; }
+    .comment-like-btn { font-size: 0.75rem; color: var(--text-muted); cursor: pointer; margin-top: 4px; transition: transform 0.1s; }
+    .comment-like-btn:active { transform: scale(0.8); }
+    .comment-like-btn.liked { color: #E4405F; }
+    .comment-modal-footer { padding: 12px 16px; border-top: 1px solid var(--card-border); display: flex; align-items: center; gap: 12px; background: var(--cream-bg); }
+    .comment-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
+    .comment-input { flex: 1; border: none; background: transparent; outline: none; font-size: 0.9rem; color: var(--text-dark); }
+    .post-comment-btn { background: none; border: none; color: #0095f6; font-weight: 600; font-size: 0.9rem; cursor: pointer; opacity: 0.5; transition: opacity 0.2s; }
+    .post-comment-btn.active { opacity: 1; }
+    .empty-comments { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem; }
+
+    @media (min-width: 640px) { .comment-modal-overlay { align-items: center; } .comment-modal-content { height: 500px; border-radius: 20px; transform: scale(0.9) translateY(20px); } .comment-modal-overlay.active .comment-modal-content { transform: scale(1) translateY(0); } .modal-drag-handle { display: none; } .comment-modal-header { padding-top: 16px; } }
+    @media (max-width: 640px) { .card { padding: 2rem 1.25rem; } .profile-title h1 { font-size: 2.1rem; } .gallery-grid { grid-template-columns: 1fr; gap: 2rem; } }
+    
+    /* Container for the images */
+.ig-img-wrap { 
+  position: relative; 
+  aspect-ratio: 4 / 5; 
+  overflow: hidden; 
+}
+
+/* The swiping track */
+.carousel { 
+  display: flex; 
+  overflow-x: auto; 
+  scroll-snap-type: x mandatory; 
+  height: 100%; 
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge */
+}
+.carousel::-webkit-scrollbar { 
+  display: none; /* Chrome/Safari */
+}
+
+/* The individual images */
+.carousel img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  flex-shrink: 0; 
+  scroll-snap-align: center; 
+  cursor: pointer;
+}
+
+/* The photo counter badge */
+.photo-counter {
+  position: absolute; 
+  top: 12px; 
+  right: 12px; 
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff; 
+  font-size: 0.75rem; 
+  padding: 4px 10px; 
+  border-radius: 12px;
+  z-index: 5; 
+  font-weight: 600; 
+  pointer-events: none; 
+  display: none; /* Hidden by default until JS detects multiple images */
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Palette Switcher Button -->
+  <button id="paletteToggle" class="palette-btn" aria-label="Change Color Palette">
+    <i class="fa-solid fa-palette"></i>
+    <span id="paletteName">Sage</span>
+  </button>
+
+  <!-- Ambient Background Blobs -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="container">
+    
+    <!-- Profile & Bio Card -->
+    <div class="card profile-header">
+      <div class="avatar-wrapper">
+        <img src="profile.jpeg" alt="Profile Picture" class="avatar">
+      </div>
+      
+      <div class="profile-title">
+        <h1>Khushal</h1>
+        <p>A Student</p>
+      </div>
+
+      <div class="bio">
+        Hello! 👋 I'm a Diploma student of KCES's COEM Jalgaon, passionate about technology, web development, AI and creative design. I enjoy learning new skills and building cool projects.
+        <p>🪷 || ॐ || 🪷</p>
+      </div>
+
+      <div class="social-links">
+        <a href="https://www.instagram.com/_khushal_wagh_?igsh=cThyN2pqeXc4M254" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://www.snapchat.com/add/khushal.wagh?share_id=2XOGzOqjvE0&locale=en-US" target="_blank" class="social-btn" aria-label="Snapchat"><i class="fa-brands fa-snapchat"></i></a>
+        <a href="https://www.threads.com/@_khushal_wagh_" target="_blank" class="social-btn" aria-label="Threads"><i class="fa-brands fa-threads"></i></a>
+      </div>
+    </div>
+
+    <!-- Gallery Card -->
+    <div class="card">
+      <h2 class="section-title">Gallery</h2>
+      
+      <div class="gallery-grid">
+        
+
+        
+        <!-- Post 7 (Index 0) -->
+<div class="gallery-item" data-post-index="0">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="71.jpeg" alt="Gallery Photo 1">
+      <img src="72.jpeg" alt="Gallery Photo 2">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>😎💥<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+<!-- Post 6 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="61.jpeg" alt="Gallery Photo 1">
+      <img src="62.jpeg" alt="Gallery Photo 2">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>Pink Vibes 🩷<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+
+<!-- Post 5 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="21.jpeg" alt="Gallery Photo 1">
+      <img src="22.jpeg" alt="Gallery Photo 2">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>😎 ⚡<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+<!-- Post 4 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="11.jpeg" alt="Gallery Photo 1">
+      <img src="12.jpeg" alt="Gallery Photo 2">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>🧿🤌<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+
+<!-- Post 3 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="51.jpeg" alt="Gallery Photo 1">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>🏍️💥<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+
+<!-- Post 2 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="41.jpeg" alt="Gallery Photo 1">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>📈💯<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+<!-- Post 1 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="31.jpeg" alt="Gallery Photo 1">
+      <img src="32.jpeg" alt="Gallery Photo 2">
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>....🤍<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+
+<!-- Post 0 (Index 2) -->
+<div class="gallery-item" data-post-index="2">
+  <div class="ig-header">
+    <img src="profile.jpeg" alt="Avatar">
+    <span>Kʜᴜsʜᴀʟ....🤍⚡</span>
+  </div>
+  <div class="ig-img-wrap">
+    <div class="photo-counter"></div>
+    <div class="carousel">
+      <img src="00.jpeg" alt="Gallery Photo 1">
+
+    </div>
+    <i class="fa-solid fa-heart big-heart"></i>
+  </div>
+  <div class="ig-actions">
+    <i class="fa-regular fa-heart heart-icon"></i>
+    <i class="fa-regular fa-comment comment-icon"></i> 
+    <i class="fa-regular fa-paper-plane share-icon"></i>
+  </div>
+  <div class="ig-caption">
+    <strong>_khushal_wagh_</strong>Just chill😎🤌<a href="#" class="hashtag">#photography</a> <a href="#" class="hashtag">#post</a>
+  </div>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+<!-- Simple Footer -->
+<footer>
+  <p class="copyright">&copy; <span id="current-year"></span> Khushal Wagh. All rights reserved.</p>
+  <p class="copyright"> <span id="current-date"></span></p>
+</footer>
+
+
+  </div>
+
+  <!-- Original Lightbox Modal -->
+  <div class="modal" id="modal">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <img id="modalImg" src="" alt="Enlarged View">
+  </div>
+
+  <!-- INSTAGRAM STYLE COMMENTS POP-UP -->
+  <div class="comment-modal-overlay" id="commentModalOverlay">
+    <div class="comment-modal-content" id="commentModalContent">
+      <div class="modal-drag-handle"></div>
+      <div class="comment-modal-header">Comments</div>
+      <div class="comment-modal-body" id="commentList"></div>
+      <div class="comment-modal-footer">
+        <img src="profile.jpeg" class="comment-avatar" alt="Avatar">
+        <input type="text" id="commentInput" class="comment-input" placeholder="Add a comment...">
+        <button id="postCommentBtn" class="post-comment-btn" disabled>Post</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+// Automatically update footer year
+const today = new Date();
+document.getElementById('current-year').textContent = today.getFullYear();
+
+// Format and display the current date (Month DD, YYYY)
+const dateOptions = { month: 'long', day: '2-digit', year: 'numeric' };
+document.getElementById('current-date').textContent = today.toLocaleDateString('en-US', dateOptions);
+
+
+    // 1. Color Palette Switcher
+    const paletteBtn = document.getElementById('paletteToggle');
+    const paletteName = document.getElementById('paletteName');
+
+    paletteBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme === 'sage') { document.documentElement.setAttribute('data-theme', 'blush'); paletteName.textContent = 'Blush'; } 
+      else if (currentTheme === 'blush') { document.documentElement.setAttribute('data-theme', 'lavender'); paletteName.textContent = 'Lavender'; } 
+      else if (currentTheme === 'lavender') { document.documentElement.setAttribute('data-theme', 'buttercream'); paletteName.textContent = 'Buttercream'; } 
+      else if (currentTheme === 'buttercream') { document.documentElement.removeAttribute('data-theme'); paletteName.textContent = 'Seaside'; } 
+      else { document.documentElement.setAttribute('data-theme', 'sage'); paletteName.textContent = 'Sage'; }
+    });
+
+    // 2. Smooth Scroll Animation Observer
+    const scrollObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => { entry.target.classList.add('reveal'); }, index * 100); 
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.gallery-item').forEach(item => { scrollObserver.observe(item); });
+
+    // =======================================================
+    // 3. Carousel Logic & Double-Tap / Single-Tap Interactions
+    // =======================================================
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    const modalClose = document.getElementById('modalClose');
+
+    document.querySelectorAll('.ig-img-wrap').forEach(wrap => {
+      const carousel = wrap.querySelector('.carousel');
+      const counter = wrap.querySelector('.photo-counter');
+      const images = carousel.querySelectorAll('img');
+      const totalImages = images.length;
+
+      // Handle Counter Display
+      if (totalImages > 1) {
+        counter.style.display = 'block';
+        counter.textContent = `1/${totalImages}`;
+        
+        carousel.addEventListener('scroll', () => {
+          const index = Math.round(carousel.scrollLeft / carousel.clientWidth) + 1;
+          counter.textContent = `${index}/${totalImages}`;
+        });
+      }
+
+      // Handle Image Taps (Like vs View)
+      let clickTimer = null;
+      carousel.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'IMG') return;
+
+        if (clickTimer === null) {
+          clickTimer = setTimeout(() => {
+            clickTimer = null;
+            modalImg.src = e.target.src;
+            modal.classList.add('active');
+          }, 300); 
+        } else {
+          clearTimeout(clickTimer);
+          clickTimer = null;
+          
+          const bigHeart = wrap.querySelector('.big-heart');
+          if(bigHeart) {
+            bigHeart.classList.add('pop');
+            setTimeout(() => { bigHeart.classList.remove('pop'); }, 800);
+          }
+          
+          const heart = wrap.parentElement.querySelector('.heart-icon');
+          heart.classList.remove('fa-regular');
+          heart.classList.add('fa-solid');
+          heart.style.color = '#E4405F';
+          heart.style.transform = 'scale(1.3)';
+          setTimeout(() => heart.style.transform = 'scale(1)', 200);
+        }
+      });
+    });
+
+    modalClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('active'); });
+
+    // 4. Manual Like Click
+    document.querySelectorAll('.heart-icon').forEach(heart => {
+      heart.addEventListener('click', () => {
+        heart.classList.toggle('fa-regular');
+        heart.classList.toggle('fa-solid');
+        if(heart.classList.contains('fa-solid')) {
+          heart.style.color = '#E4405F';
+          heart.style.transform = 'scale(1.2)';
+          setTimeout(() => heart.style.transform = 'scale(1)', 200);
+        } else {
+          heart.style.color = '';
+        }
+      });
+    });
+
+    // 5. Share Functionality 
+    document.querySelectorAll('.share-icon').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const shareUrl = "https://khushal-wagh.github.io/Portfolio/";
+        if (navigator.share) {
+          navigator.share({ title: 'Khushal Wagh Portfolio', text: '', url: shareUrl }).catch(console.error);
+        } else {
+          alert("Sharing is not supported on this browser. Copy the URL to share: " + shareUrl);
+        }
+      });
+    });
+
+    // =======================================================
+    // 6. POP-UP COMMENTS LOGIC (WITH LOCAL STORAGE USERNAME)
+    // =======================================================
+    const commentModalOverlay = document.getElementById('commentModalOverlay');
+    const commentListContainer = document.getElementById('commentList');
+    const commentInput = document.getElementById('commentInput');
+    const postCommentBtn = document.getElementById('postCommentBtn');
+    
+    const postCommentsData = { 0: [], 1: [], 2: [], 3: [], 4: [], 5: [], 6: [], 7: [] };
+    let activePostIndex = null;
+
+    document.querySelectorAll('.comment-icon').forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        const postElement = e.target.closest('.gallery-item');
+        activePostIndex = postElement.getAttribute('data-post-index');
+        
+        renderComments(); 
+        commentModalOverlay.classList.add('active');
+        
+        setTimeout(() => commentInput.focus(), 300);
+      });
+    });
+
+    commentModalOverlay.addEventListener('click', (e) => {
+      if (e.target === commentModalOverlay) {
+        commentModalOverlay.classList.remove('active');
+        commentInput.value = ''; 
+        postCommentBtn.classList.remove('active');
+        postCommentBtn.setAttribute('disabled', 'true');
+      }
+    });
+
+    function renderComments() {
+      commentListContainer.innerHTML = ''; 
+      const comments = postCommentsData[activePostIndex];
+
+      if (!comments || comments.length === 0) {
+        commentListContainer.innerHTML = '<div class="empty-comments">No comments yet. Be the first to comment!</div>';
+        return;
+      }
+
+      comments.forEach((comment) => {
+        const commentItem = document.createElement('div');
+        commentItem.classList.add('comment-item');
+        commentItem.innerHTML = `
+          <div class="comment-content">
+            <strong>${comment.username}</strong> ${comment.text}
+          </div>
+          <i class="fa-regular fa-heart comment-like-btn"></i>
+        `;
+        commentListContainer.appendChild(commentItem);
+
+        const tinyHeart = commentItem.querySelector('.comment-like-btn');
+        tinyHeart.addEventListener('click', () => {
+          tinyHeart.classList.toggle('fa-regular');
+          tinyHeart.classList.toggle('fa-solid');
+          tinyHeart.classList.toggle('liked');
+        });
+      });
+      commentListContainer.scrollTop = commentListContainer.scrollHeight;
+    }
+
+    commentInput.addEventListener('input', () => {
+      if(commentInput.value.trim().length > 0) {
+        postCommentBtn.classList.add('active');
+        postCommentBtn.removeAttribute('disabled');
+      } else {
+        postCommentBtn.classList.remove('active');
+        postCommentBtn.setAttribute('disabled', 'true');
+      }
+    });
+
+    const submitComment = () => {
+      const text = commentInput.value.trim();
+      if (text !== '' && activePostIndex !== null) {
+        
+        let currentUsername = localStorage.getItem('portfolio_username');
+        
+        if (!currentUsername) {
+            currentUsername = prompt("What username would you like to use for your comments?", "user_" + Math.floor(Math.random() * 10000));
+            if (!currentUsername || currentUsername.trim() === '') {
+                currentUsername = "guest_user";
+            }
+            localStorage.setItem('portfolio_username', currentUsername.trim());
+        }
+
+        if(!postCommentsData[activePostIndex]) postCommentsData[activePostIndex] = [];
+
+        postCommentsData[activePostIndex].push({
+            username: currentUsername,
+            text: text
+        }); 
+        
+        renderComments(); 
+        
+        commentInput.value = ''; 
+        postCommentBtn.classList.remove('active');
+        postCommentBtn.setAttribute('disabled', 'true');
+      }
+    };
+
+    postCommentBtn.addEventListener('click', submitComment);
+    commentInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        submitComment();
+      }
+    });
+    
+    document.querySelectorAll('.ig-img-wrap').forEach(wrap => {
+  const carousel = wrap.querySelector('.carousel');
+  const counter = wrap.querySelector('.photo-counter');
+  const images = carousel.querySelectorAll('img');
+  const totalImages = images.length;
+
+  // Only show the counter if there is more than 1 image
+  if (totalImages > 1) {
+    counter.style.display = 'block';
+    counter.textContent = `1/${totalImages}`;
+    
+    // Listen for scroll/swipe events
+    carousel.addEventListener('scroll', () => {
+      // Calculate which image is currently in the center of the view
+      const index = Math.round(carousel.scrollLeft / carousel.clientWidth) + 1;
+      counter.textContent = `${index}/${totalImages}`;
+    });
+  }
+});
+
+  </script>
+</body>
+</html>
